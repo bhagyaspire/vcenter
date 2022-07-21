@@ -1,0 +1,25 @@
+- name:  Clone a virtual machine from Linux template and customize
+  vmware_guest:
+    hostname: "https://nxtvcenter.nxtsandbox.local/"
+    username: "administrator@vsphere.local"
+    password: "Aspirenxt@12299"
+    validate_certs: no
+    datacenter: "KL-Datacenter"
+    state: present
+    folder: /KL-Datacenter/NXT-Cluster/CTC_RWS_ANSIBLE/
+    template: "Win10-LTSC-Ent"
+    name: "test_vm_01"
+    cluster: NXT-Cluster
+    networks:
+      - name: VM-Network
+        ip: 192.168.10.11
+        netmask: 255.255.255.0
+    wait_for_ip_address: True
+    customization:
+      domain: "nxtsandbox.local"
+      dns_servers:
+        - 192.168.1.11
+        - 192.168.1.12
+      dns_suffix:
+        - nxtsandbox.local
+  delegate_to: localhost
